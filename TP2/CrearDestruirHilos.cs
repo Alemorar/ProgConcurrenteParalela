@@ -1,0 +1,12 @@
+﻿using System;
+using System.Threading;
+
+/////////////////////////////////////////////////////////////////////////////////////
+///Hilos.
+
+public class Class1
+{
+	public Class1()
+	{
+	}
+}
