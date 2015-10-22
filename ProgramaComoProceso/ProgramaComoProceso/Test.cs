@@ -5,8 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 /// <summary>
 /// ////////////////////////////////////////////////////////////////////////////////////////////
-/// Procesos
-/// </summary>
+/// Procesos 
+///
 namespace ProgramaComoProceso
 {
     class Test
@@ -20,7 +20,7 @@ namespace ProgramaComoProceso
                 limiteInf);//valor entre 1 y n
         }
 
-        public static void Esperar(int n)
+        public static void Esperar(int n)//Establecemos los Ticks o pasos. Cada Tick equivale a 100 nanosegundos
         {
             long tmi = DateTime.Now.Ticks;//Ticks
             while (DateTime.Now.Ticks < tmi);//Esperar n Ticks
