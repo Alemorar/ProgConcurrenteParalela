@@ -6,8 +6,7 @@ using System.Threading;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
-
-namespace Punto6
+namespace EjercicioPreparcial
 {
     class Program
     {
