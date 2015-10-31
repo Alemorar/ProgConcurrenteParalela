@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 
-
 namespace mutex
 {
     class Program
@@ -12,10 +11,9 @@ namespace mutex
         private static Mutex mut = new Mutex();
         static Thread[] threads = new Thread[50];
         static int p = 20;
+
         static void Main(string[] args) 
-          {
-           
-       
+        {
             for (int i = 0; i < 25; i++)
             {
                 threads[i] = new Thread(aumentar);
