@@ -8,12 +8,12 @@ namespace EjemploInterlocked
 {
     class Program
     {
-        static int _value;
+        static int _value = 6;
 
         static void Main(string[] args)
         {
-            Thread thread1 = new Thread(new ThreadStart(A));
-            Thread thread2 = new Thread(new ThreadStart(A));
+            Thread thread1 = new Thread(new ThreadStart(B));
+            Thread thread2 = new Thread(new ThreadStart(B));
             thread1.Start();
             thread2.Start();
             thread1.Join();
@@ -22,7 +22,7 @@ namespace EjemploInterlocked
             Console.ReadKey();
 
         }
-        static void A()
+        static void B()
         {
             // Add one then subtract two.
             Interlocked.Increment(ref Program._value);

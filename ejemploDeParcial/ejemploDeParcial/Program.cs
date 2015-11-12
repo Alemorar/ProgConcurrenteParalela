@@ -10,7 +10,7 @@ namespace AppSemaforos
 {
     class Program
     {
-        static Thread[] threads = new Thread[50];
+        static Thread[] threads = new Thread[15];
         static Semaphore sem1 = new Semaphore(1, 1);//Inicializa una nueva instancia de la clase Semaphore, especificando el número inicial de entradas y el número máximo de entradas simultáneas.
         static Semaphore sem2 = new Semaphore(0, 1);
         static Semaphore sem3 = new Semaphore(0, 1);
