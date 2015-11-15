@@ -12,47 +12,44 @@ namespace Encriptacion
         static void Main(string[] args)
         {
             int a = 0;
-            String varString = "Hola Tano estas verdaderamente loco hijo de la chingad";
+            String varString = "Hola Tano estas verdaderamente loco hijo de la chingada madre";
             Console.WriteLine("Longitud de Cadena {0}", varString.Length);
             int fila = 4;
             int col = 0;
             if (varString.Length % fila == 0)
             {
                 col = (int)Math.Truncate(varString.Length / (double)fila);
-                Console.WriteLine("Mod =0 {0}", col);
             }else
             {
                 col = (int)(Math.Truncate(varString.Length / (double)fila) + 1);
-                Console.WriteLine("Mod !0 {0}", col);
             }
-            Console.WriteLine("Cociente Long Cadena({0}) / fila({1}) = {2}", varString.Length, fila,
-                (double)varString.Length / fila);
-            Console.WriteLine("La cadena es: ''{0}''\n", varString);
+            Console.WriteLine("Cociente Long Cadena({0}) / fila({1}) = {2} col {3}", varString.Length, fila,
+                (double)varString.Length / fila, col);
+            Console.WriteLine("La cadena es: '{0}'\n", varString);
             String[,] matFrase = new String[fila, col];
             //Cargamos la matriz matFrase
-            for (int i = 0; i < col; i++)
+            for (int i = 0; i < matFrase.GetLength(1); i++)//col
             {
-                for (int j = 0; j < fila; j++)
+                for (int j = 0; j < matFrase.GetLength(0); j++)//fila
                 {
                     try
                     {
-                        Console.Write("{0}", matFrase[j, i] = varString.Substring(a, 1));
+                        matFrase[j, i] = varString.Substring(a, 1);
                         a++;
                     }
                     catch (Exception e)
                     {
-                        Console.Write("{0}", matFrase[j, i] = " ");
+                        matFrase[j, i] = " ";
                     }
                 }
-                Console.WriteLine("");
             }
             Console.WriteLine("");
             //hacemos la transpuesta de matFrase
-            for (int i = 0; i < fila; i++)
+            for (int i = 0; i < matFrase.GetLength(0); i++)//fila
             {
-                for (int j = 0; j < col; j++)
+                for (int j = 0; j < matFrase.GetLength(1); j++)//col
                 {
-                    Console.Write("{0}  ", matFrase[i, j]);
+                    Console.Write("{0}|", matFrase[i, j]);
                 }
                 Console.WriteLine("");
             }
