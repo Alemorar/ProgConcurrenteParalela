@@ -55,7 +55,7 @@ namespace Encriptacion
                         }
                         break;
                     case "4":
-                        ///MostrarMatrizString(matString);
+                        MostrarMatrizString(matString);
                         break;
                     case "8":
                         Console.WriteLine("");
@@ -104,7 +104,7 @@ namespace Encriptacion
             return matString;
         }
 
-        public static void MostrarMatrizString(string[,] matString)
+        public static string[,] MostrarMatrizString(string[,] matString)
         {
             for (int i = 0; i < matString.GetLength(1); i++)//col
             {
@@ -114,11 +114,12 @@ namespace Encriptacion
                 }
                 Console.WriteLine("|");
             }
+            return matString;
         }
 
         public static string StringPredeterminado()
         {
-            string varString = "Hola Tano estas verdaderamente loco, estamos probando el codigo";
+            string varString = "String de prueba para encriptacion de mensajes 0123456789";
             return varString;
         }
 
@@ -144,8 +145,10 @@ namespace Encriptacion
         public static void MatrizReferencia()
         {
             string[,] matRef = {{"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W",
-                                  "X","Y","Z"," "},{"01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16",
-                                      "17","18","19","20","21","22","23","24","25","26","27"}};
+                                  "X","Y","Z"," ","@","#","!","$","%","&","/","(",")","=","?","¿"},
+                                  {"01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18",
+                                  "19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36",
+                                  "37","38","39"}};
 
             for (int i = 0; i < matRef.GetLength(0); i++)//col
             {
