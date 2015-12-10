@@ -9,7 +9,7 @@ namespace Encriptacion
 {
     class Program
     {
-        public static void Main(string[] args)
+        static void Main(string[] args)
         {
             string varString = "";
             string opcion = "";
@@ -30,7 +30,7 @@ namespace Encriptacion
                 Console.WriteLine("0) Salir");
                 Console.Write("Seleccione una opcion: ");
                 opcion = Console.ReadLine();
-
+                string[,] matString;
                 switch (opcion)
                 {                    
                     case "1":
@@ -50,8 +50,7 @@ namespace Encriptacion
                             Console.Write("Ingrese cantida de filas de la Matriz: ");
                             fila = Convert.ToInt32(Console.ReadLine());//definimos la cantidad de filas de la Matriz
                             col = CalcularCantCol(varString, fila, col);//llamamos la funcion para calcular la cantidad de columnas
-                            matString = InstanciarMatriz(fila, col);
-                            matString = CargarStringEnMatriz(matString, fila, col, varString, a);
+                            CargarStringEnMatriz(fila, col, varString, a);
                         }
                         break;
                     case "4":
@@ -74,8 +73,9 @@ namespace Encriptacion
             } while (opcion != "0");
         }
 
-        public static String[,] CargarStringEnMatriz(string[,] matString, int fila, int col, string varString, int a)
+        public static string[,] CargarStringEnMatriz(int fila, int col, string varString, int a)
         {
+            string[,] matString = new string[fila, col];
             //Cargamos la matriz matString
             for (int i = 0; i < matString.GetLength(1); i++)//col
             {
@@ -86,7 +86,7 @@ namespace Encriptacion
                         matString[j, i] = varString.Substring(a, 1);
                         a++;
                     }
-                    catch (Exception e)
+                    catch (Exception)
                     {
                         matString[j, i] = " ";
                     }
@@ -97,18 +97,18 @@ namespace Encriptacion
             {
                 for (int j = 0; j < matString.GetLength(1); j++)//col
                 {
-                    Console.Write("|{0}", matString[i, j]);
+                    //Console.Write("|{0}", matString[i, j]);
                 }
-                Console.WriteLine("|");
+                //Console.WriteLine("|");
             }
             return matString;
         }
 
         public static string[,] MostrarMatrizString(string[,] matString)
         {
-            for (int i = 0; i < matString.GetLength(1); i++)//col
+            for (int i = 0; i < matString.GetLength(0); i++)//fila
             {
-                for (int j = 0; j < matString.GetLength(0); j++)//fila
+                for (int j = 0; j < matString.GetLength(1); j++)//col
                 {
                     Console.Write("|{0}", matString[i, j]);
                 }
@@ -123,11 +123,11 @@ namespace Encriptacion
             return varString;
         }
 
-        public static string[,] InstanciarMatriz(int fila, int col)
-        {
-            string[,] matString = new string[fila, col];
-            return matString;
-        }
+        //public static void InstanciarMatriz(int fila, int col)
+        //{
+        //    string[,] matString = new string[fila, col];
+        //    //return matString;
+        //}
 
         public static int CalcularCantCol(string varString, int fila, int col)//calculamos la cantidad de columnas de la Matriz
         {
