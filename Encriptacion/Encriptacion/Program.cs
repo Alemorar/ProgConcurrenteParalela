@@ -69,12 +69,11 @@ namespace Encriptacion
                     case "4":
                         Codificar(matString);
                         Console.WriteLine();
-                        Console.WriteLine("La cadena String es:\n'{0}'", varString);
+                        Console.WriteLine("La cadena String es:\n\n'{0}'", varString);
+                        Console.WriteLine();
                         MostrarMatrizString();
                         Console.WriteLine();
                         MostrarMatrizCod(matCod);
-                        Console.WriteLine();
-                        MatrizReferencia(matRef);
                         break;
                     case "5":
                         
@@ -101,7 +100,22 @@ namespace Encriptacion
             } while (opcion != "0");
         }
 
-        public static void Codificar(string[,] matString)
+        public static void CrearMatrizAleatoria()//MATRIZ GENERADA ALEATORIAMENTE
+        {
+
+            for (int i = 0; i < matString.GetLength(0); i++)//fila
+            {
+                for (int j = 0; j < matString.GetLength(1); j++)//col
+                {
+                    Random rnd = new Random();
+                    matCod[i, j] = rnd.Next(1, 50); //= rnd.Next(1, 50);// creates a number between 1 and 49
+                    str = matString[i, j];
+                    codRef = Int32.Parse(BuscarNroCodigo(str));//Envia el elemento a BuscarNroCodigo para 
+                }
+            }
+        }
+
+        public static void Codificar(string[,] matString)//COMPARA CADA ELEMENTO DE matString CON LOS DE matRef
         {
             matCod = new int[fila, col];
             for (int i = 0; i < matString.GetLength(0); i++)//fila
@@ -109,7 +123,7 @@ namespace Encriptacion
                 for (int j = 0; j < matString.GetLength(1); j++)//col
                 {
                     str = matString[i, j];
-                    codRef = Int32.Parse(BuscarNroCodigo(str));
+                    codRef = Int32.Parse(BuscarNroCodigo(str));//Envia el elemento a BuscarNroCodigo para 
                     matCod[i, j] = codRef;
                 }
             }
@@ -190,7 +204,13 @@ namespace Encriptacion
             {
                 for (int j = 0; j < matCod.GetLength(1); j++)//col
                 {
-                    Console.Write("|{0}", matCod[i, j]);
+                    if (matCod[i,j] < 10)
+                    {
+                        Console.Write("| {0}", matCod[i, j]);
+                    }else
+                    {
+                        Console.Write("|{0}", matCod[i, j]);
+                    }
                 }
                 Console.WriteLine("|");
             }
