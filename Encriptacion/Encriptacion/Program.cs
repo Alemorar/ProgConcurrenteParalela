@@ -9,14 +9,23 @@ namespace Encriptacion
 {
     class Program
     {
+        public static string[,] matString;
+        public static string[,] matRef = new string[2,49] {{
+"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"," ","@","#","!","$","%","&","/","(",")","=","?","¿","0","1","2","3","4","5","6","7","8","9"},{
+"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49"}};
+        
+        public static int[,] matCod;
+        public static string varString;
+        public static string opcion;
+        public static int a = 0;
+        public static int fila = 0;
+        public static int col = 0;
+        public static string str;
+        public static int codRef;
+        public static string strRef;
+
         static void Main(string[] args)
         {
-            string varString = "";
-            string opcion = "";
-            int a = 0;
-            int fila = 0;
-            int col = 0;
-            string[,] matString;
             do
             {
                 Console.Clear();
@@ -24,24 +33,26 @@ namespace Encriptacion
                 Console.WriteLine("1) Ingresar String");
                 Console.WriteLine("2) Mostrar String");
                 Console.WriteLine("3) Cargar String en Matriz");
-                Console.WriteLine("4) Mostrar String en Matriz");
-                Console.WriteLine("5) Codificar Matriz");
-                Console.WriteLine("6) Encriptar Matriz");
+                Console.WriteLine("4) ");
+                Console.WriteLine("5) ");
+                Console.WriteLine("6) Codificar Matriz");
+                Console.WriteLine("7) Mostrar Matriz Cod");
                 Console.WriteLine("0) Salir");
                 Console.Write("Seleccione una opcion: ");
                 opcion = Console.ReadLine();
-                string[,] matString;
                 switch (opcion)
-                {                    
+                {
                     case "1":
+                        Console.WriteLine();
                         Console.Write("Ingrese String: ");
                         varString = Console.ReadLine();
                         break;
                     case "2":
-                        Console.WriteLine("La cadena String es: '{0}'\n", varString);
+                        Console.WriteLine();
+                        Console.WriteLine("La cadena String es:\n'{0}'", varString);
                         break;
                     case "3":
-                        if (varString.Length <= 1)
+                        if (String.IsNullOrEmpty(varString))
                         {
                             Console.WriteLine("Debe definir un String antes de cargar la Matriz");
                         }
@@ -51,17 +62,34 @@ namespace Encriptacion
                             fila = Convert.ToInt32(Console.ReadLine());//definimos la cantidad de filas de la Matriz
                             col = CalcularCantCol(varString, fila, col);//llamamos la funcion para calcular la cantidad de columnas
                             CargarStringEnMatriz(fila, col, varString, a);
+                            Console.WriteLine();
+                            MostrarMatrizString();
                         }
                         break;
                     case "4":
-                        MostrarMatrizString(matString);
+                        Codificar(matString);
+                        Console.WriteLine();
+                        Console.WriteLine("La cadena String es:\n'{0}'", varString);
+                        MostrarMatrizString();
+                        Console.WriteLine();
+                        MostrarMatrizCod(matCod);
+                        Console.WriteLine();
+                        MatrizReferencia(matRef);
+                        break;
+                    case "5":
+                        
+                        break;
+                    case "6":
+                        
+                        break;
+                    case "7":
+                        
                         break;
                     case "8":
-                        Console.WriteLine("");
-                        MatrizReferencia();
+                        MatrizReferencia(matRef);
                         break;
                     case "9":
-                        varString = StringPredeterminado();
+                        varString = "STRING DE prueba PARA ENCRIPTACION DE MENSAJES 0123456789";
                         break;
                     default:
                         Console.WriteLine("Default case");
@@ -73,9 +101,44 @@ namespace Encriptacion
             } while (opcion != "0");
         }
 
+        public static void Codificar(string[,] matString)
+        {
+            matCod = new int[fila, col];
+            for (int i = 0; i < matString.GetLength(0); i++)//fila
+            {
+                for (int j = 0; j < matString.GetLength(1); j++)//col
+                {
+                    str = matString[i, j];
+                    codRef = Int32.Parse(BuscarNroCodigo(str));
+                    matCod[i, j] = codRef;
+                }
+            }
+        }
+
+        public static string BuscarNroCodigo(string str)
+        {            
+            for (int i = 0; i < matRef.GetLength(0); i++)//fila
+            {
+                for (int j = 0; j < matRef.GetLength(1); j++)//col
+                {
+                    if (i == 1)
+                    {
+                        break;
+                    }
+                    //Console.WriteLine("str {0} / matRef {1},{2} es {3}", str, i, j, matRef[i,j]);
+                    if (matRef[i, j].Equals(str, StringComparison.OrdinalIgnoreCase))//root.Equals(root2, StringComparison.OrdinalIgnoreCase)
+                    {
+                        strRef = matRef[i + 1, j];
+                        break;
+                    }
+                }
+            }            
+            return strRef;
+        }
+
         public static string[,] CargarStringEnMatriz(int fila, int col, string varString, int a)
         {
-            string[,] matString = new string[fila, col];
+            matString = InstanciarMatString();//instanciamos matString
             //Cargamos la matriz matString
             for (int i = 0; i < matString.GetLength(1); i++)//col
             {
@@ -99,35 +162,39 @@ namespace Encriptacion
                 {
                     //Console.Write("|{0}", matString[i, j]);
                 }
-                //Console.WriteLine("|");
             }
             return matString;
         }
 
-        public static string[,] MostrarMatrizString(string[,] matString)
+        public static void MostrarMatrizString()
         {
             for (int i = 0; i < matString.GetLength(0); i++)//fila
             {
                 for (int j = 0; j < matString.GetLength(1); j++)//col
                 {
-                    Console.Write("|{0}", matString[i, j]);
+                    Console.Write("| {0}", matString[i, j]);
                 }
                 Console.WriteLine("|");
             }
+        }
+
+        public static string[,] InstanciarMatString()
+        {
+            string[,] matString = new string[fila, col];
             return matString;
         }
 
-        public static string StringPredeterminado()
+        public static void MostrarMatrizCod(int[,] matCod)
         {
-            string varString = "String de prueba para encriptacion de mensajes 0123456789";
-            return varString;
+            for (int i = 0; i < matCod.GetLength(0); i++)//fila
+            {
+                for (int j = 0; j < matCod.GetLength(1); j++)//col
+                {
+                    Console.Write("|{0}", matCod[i, j]);
+                }
+                Console.WriteLine("|");
+            }
         }
-
-        //public static void InstanciarMatriz(int fila, int col)
-        //{
-        //    string[,] matString = new string[fila, col];
-        //    //return matString;
-        //}
 
         public static int CalcularCantCol(string varString, int fila, int col)//calculamos la cantidad de columnas de la Matriz
         {
@@ -142,27 +209,23 @@ namespace Encriptacion
             return col;
         }
 
-        public static void MatrizReferencia()
+        public static void MatrizReferencia(string[,] matRef)
         {
-            string[,] matRef = {{"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W",
-                                  "X","Y","Z"," ","@","#","!","$","%","&","/","(",")","=","?","¿"},
-                                  {"01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18",
-                                  "19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36",
-                                  "37","38","39"}};
-
-            for (int i = 0; i < matRef.GetLength(0); i++)//col
+            for (int i = 0; i < matRef.GetLength(1); i++)//col
             {
-                for (int j = 0; j < matRef.GetLength(1); j++)//fila
+                for (int j = 0; j < matRef.GetLength(0); j++)//fila
                 {
-                    if (i == 0)
-                    {
-                        Console.Write(" {0} ", matRef[i, j]);
-                    }
-                    else
-                    {
-                        Console.Write("{0} ", matRef[i, j]);
-                    }
+                    //if (i == 0)
+                    //{
+                        Console.Write("{0}", matRef[j, i]);
+                    //}
+                    //else
+                    //{
+                    //    Console.Write("{0}", matRef[i, j]);
+                    //}
+                    Console.Write("|");
                 }
+                Console.WriteLine();
             }
         }
     }
