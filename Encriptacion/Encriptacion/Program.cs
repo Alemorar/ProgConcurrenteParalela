@@ -15,14 +15,16 @@ namespace Encriptacion
 "1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49"}};
         public static int[,] matCod;
         public static int[,] matAleat;
+        public static int[,] matEncryp:
         public static string varString;
         public static string opcion;
         public static int a = 0;
-        public static int fila = 0;
+        public static int fila = 2;
         public static int col = 0;
         public static string str;
         public static int codRef;
         public static string strRef;
+        public static int det;
 
         static void Main(string[] args)
         {
@@ -58,8 +60,8 @@ namespace Encriptacion
                         }
                         else
                         {
-                            Console.Write("Ingrese cantida de filas de la Matriz: ");
-                            fila = Convert.ToInt32(Console.ReadLine());//definimos la cantidad de filas de la Matriz
+                            //Console.Write("Ingrese cantida de filas de la Matriz: ");
+                            //fila = Convert.ToInt32(Console.ReadLine());//definimos la cantidad de filas de la Matriz
                             col = CalcularCantCol(varString, fila, col);//llamamos la funcion para calcular la cantidad de columnas
                             CargarStringEnMatriz(fila, col, varString, a);
                             Console.WriteLine();
@@ -101,17 +103,41 @@ namespace Encriptacion
             } while (opcion != "0");
         }
 
+        public static void EncriptarMatrizCod()
+        {
+            matEncryp = new int[fila,col];
+            for (int i = 0; i < matCod.GetLength(1); i++)//col
+            {
+                for (int j = 0; j < matCod.GetLength(0); j++)//fila
+                {
+                    for (int m = 0; m < matAleat.GetLength(0); m++)//fila
+                    {
+                        for (int n = 0; n < matAleat.GetLength(1); n++)//col
+                        {
+                            matEncryp [i,j] = matCod[i,j];
+                        }
+                         
+                    }
+                    
+                }
+            }
+        }
+
         public static void CrearMatrizAleatoria()//MATRIZ GENERADA ALEATORIAMENTE
         {
             Random rnd = new Random();
             matAleat = new int[fila, fila];
-            for (int i = 0; i < matAleat.GetLength(0); i++)//fila
+            do
             {
-                for (int j = 0; j < matAleat.GetLength(1); j++)//col
+                for (int i = 0; i < matAleat.GetLength(0); i++)//fila
                 {
-                    matAleat[i, j] = rnd.Next(1, 50); //= rnd.Next(1, 50);// creates a number between 1 and 49
+                    for (int j = 0; j < matAleat.GetLength(1); j++)//col
+                    {
+                        matAleat[i, j] = rnd.Next(0, 10); //= rnd.Next(1, 50);// creates a number between 1 and 49
+                    }
                 }
-            }
+                det = (matAleat[0, 0] * matAleat[1, 1]) - (matAleat[0, 1] * matAleat[1, 0]);
+            } while (det == 0);
         }
 
         public static void MostrarMatrizAleat()
