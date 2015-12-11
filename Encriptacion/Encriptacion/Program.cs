@@ -13,8 +13,8 @@ namespace Encriptacion
         public static string[,] matRef = new string[2,49] {{
 "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"," ","@","#","!","$","%","&","/","(",")","=","?","¿","0","1","2","3","4","5","6","7","8","9"},{
 "1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49"}};
-        
         public static int[,] matCod;
+        public static int[,] matAleat;
         public static string varString;
         public static string opcion;
         public static int a = 0;
@@ -33,9 +33,9 @@ namespace Encriptacion
                 Console.WriteLine("1) Ingresar String");
                 Console.WriteLine("2) Mostrar String");
                 Console.WriteLine("3) Cargar String en Matriz");
-                Console.WriteLine("4) ");
-                Console.WriteLine("5) ");
-                Console.WriteLine("6) Codificar Matriz");
+                Console.WriteLine("4) Cofifica Matriz");
+                Console.WriteLine("5) Matriz Aleatoria");
+                Console.WriteLine("6) ");
                 Console.WriteLine("7) Mostrar Matriz Cod");
                 Console.WriteLine("0) Salir");
                 Console.Write("Seleccione una opcion: ");
@@ -73,10 +73,11 @@ namespace Encriptacion
                         Console.WriteLine();
                         MostrarMatrizString();
                         Console.WriteLine();
-                        MostrarMatrizCod(matCod);
+                        MostrarMatrizCod();
                         break;
                     case "5":
-                        
+                        CrearMatrizAleatoria();
+                        MostrarMatrizAleat();
                         break;
                     case "6":
                         
@@ -102,16 +103,33 @@ namespace Encriptacion
 
         public static void CrearMatrizAleatoria()//MATRIZ GENERADA ALEATORIAMENTE
         {
-
-            for (int i = 0; i < matString.GetLength(0); i++)//fila
+            Random rnd = new Random();
+            matAleat = new int[fila, fila];
+            for (int i = 0; i < matAleat.GetLength(0); i++)//fila
             {
-                for (int j = 0; j < matString.GetLength(1); j++)//col
+                for (int j = 0; j < matAleat.GetLength(1); j++)//col
                 {
-                    Random rnd = new Random();
-                    matCod[i, j] = rnd.Next(1, 50); //= rnd.Next(1, 50);// creates a number between 1 and 49
-                    str = matString[i, j];
-                    codRef = Int32.Parse(BuscarNroCodigo(str));//Envia el elemento a BuscarNroCodigo para 
+                    matAleat[i, j] = rnd.Next(1, 50); //= rnd.Next(1, 50);// creates a number between 1 and 49
                 }
+            }
+        }
+
+        public static void MostrarMatrizAleat()
+        {
+            for (int i = 0; i < matAleat.GetLength(0); i++)//fila
+            {
+                for (int j = 0; j < matAleat.GetLength(1); j++)//col
+                {
+                    if (matAleat[i, j] < 10)
+                    {
+                        Console.Write("| {0}", matAleat[i, j]);
+                    }
+                    else
+                    {
+                        Console.Write("|{0}", matAleat[i, j]);
+                    }
+                }
+                Console.WriteLine("|");
             }
         }
 
@@ -152,7 +170,7 @@ namespace Encriptacion
 
         public static string[,] CargarStringEnMatriz(int fila, int col, string varString, int a)
         {
-            matString = InstanciarMatString();//instanciamos matString
+            matString = new string[fila,col];//instanciamos matString
             //Cargamos la matriz matString
             for (int i = 0; i < matString.GetLength(1); i++)//col
             {
@@ -179,7 +197,7 @@ namespace Encriptacion
             }
             return matString;
         }
-
+        
         public static void MostrarMatrizString()
         {
             for (int i = 0; i < matString.GetLength(0); i++)//fila
@@ -192,19 +210,13 @@ namespace Encriptacion
             }
         }
 
-        public static string[,] InstanciarMatString()
-        {
-            string[,] matString = new string[fila, col];
-            return matString;
-        }
-
-        public static void MostrarMatrizCod(int[,] matCod)
+        public static void MostrarMatrizCod()
         {
             for (int i = 0; i < matCod.GetLength(0); i++)//fila
             {
                 for (int j = 0; j < matCod.GetLength(1); j++)//col
                 {
-                    if (matCod[i,j] < 10)
+                    if (matCod[i, j] < 10)
                     {
                         Console.Write("| {0}", matCod[i, j]);
                     }else
